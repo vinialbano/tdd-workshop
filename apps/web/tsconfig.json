@@ -1,0 +1,15 @@
+{
+  "extends": "@total-typescript/tsconfig/bundler/dom/app",
+  "compilerOptions": {
+    /* Vite-specific settings */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+
+    /* Additional strictness */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["src"]
+}

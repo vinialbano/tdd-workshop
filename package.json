@@ -1,0 +1,28 @@
+{
+  "name": "tdd-workshop",
+  "version": "0.0.0",
+  "description": "Test-Driven Development Workshop",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "report": "turbo run report",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "keywords": [],
+  "author": "Vinicius Albano <vinialbano@gmail.com> (https://vinialbano.com)",
+  "license": "ISC",
+  "packageManager": "pnpm@10.8.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@total-typescript/tsconfig": "^1.0.4",
+    "turbo": "^2.5.3"
+  }
+}
