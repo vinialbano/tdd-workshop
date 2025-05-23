@@ -14,7 +14,7 @@
     "view-report": "open coverage/report/index.html"
   },
   "devDependencies": {
-    "@vitest/coverage-istanbul": "^3.1.4",
+    "@vitest/coverage-istanbul": "3.1.4",
     "@vitest/ui": "3.1.4",
     "glob": "^11.0.1",
     "jsdom": "^26.0.0",
