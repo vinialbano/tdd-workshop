@@ -9,12 +9,36 @@ This is a monorepo containing two main applications:
 - `apps/api`: A Node.js/Express API
 - `apps/web`: A Vite + TypeScript + Tailwind CSS web application
 
-## Getting Started
+## Development Environment
+
+### Using DevContainer (Recommended)
+
+This project includes a DevContainer configuration for a consistent development environment. To use it:
+
+1. Install [Docker](https://www.docker.com/products/docker-desktop)
+2. Install [VS Code](https://code.visualstudio.com/) with the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension
+3. Clone the repository:
+
+```bash
+git clone https://github.com/vinialbano/tdd-workshop.git
+cd tdd-workshop
+```
+
+4. Open the project in VS Code and click "Reopen in Container" when prompted
+
+The DevContainer includes:
+- Node.js 22
+- pnpm
+- All necessary development tools
+
+### Manual Setup
+
+If you prefer to set up manually:
 
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/vinialbano/tdd-workshop.git
 cd tdd-workshop
 ```
 
@@ -29,6 +53,28 @@ pnpm install
 ```bash
 pnpm dev
 ```
+
+## Production Environment
+
+To run the applications in production:
+
+1. Create environment files:
+
+```bash
+cp apps/api/.env.example apps/api/.env
+```
+
+2. Update the environment variables the `.env` files
+
+3. Build and start the containers:
+
+```bash
+docker-compose up --build
+```
+
+The applications will be available at:
+- API: http://localhost:4000
+- Web: http://localhost:8080
 
 ## Workshop Structure
 
@@ -46,7 +92,7 @@ Each version represents a new feature or milestone in the application. To see wh
 git checkout v<version>
 ```
 
-## Development
+## Development Commands
 
 - `pnpm dev`: Start all applications in development mode
 - `pnpm build`: Build all applications
@@ -61,12 +107,15 @@ git checkout v<version>
 - **Testing**: Vitest
 - **Package Manager**: pnpm
 - **Monorepo**: Turborepo
+- **Containerization**: Docker, DevContainer
+- **Production**: Docker Compose, Nginx
 
 ## Learning Objectives
 
 - Understanding TDD principles and workflow
 - Writing effective tests
 - Building features incrementally
+- Working with containerized environments
 
 ## Contributing
 
