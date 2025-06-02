@@ -1,7 +1,7 @@
-import './style.css';
+import "./style.css";
 
-const app = document.querySelector<HTMLDivElement>('#app');
-if (!app) throw new Error('Element #app not found');
+const app = document.querySelector<HTMLDivElement>("#app");
+if (!app) throw new Error("Element #app not found");
 
 app.innerHTML = `
   <div class="min-h-screen bg-gray-100">

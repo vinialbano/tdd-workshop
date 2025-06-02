@@ -1,8 +1,8 @@
-import { createServer } from 'node:http';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { createApp } from './app.js';
+import { createServer } from "node:http";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { createApp } from "./app.js";
 
-describe('API Server', () => {
+describe("API Server", () => {
   let server: ReturnType<typeof createServer>;
 
   beforeAll(() => {
@@ -15,17 +15,17 @@ describe('API Server', () => {
     server.close();
   });
 
-  it('should return 200 OK for the root endpoint', async () => {
-    const response = await fetch('http://localhost:3000');
+  it("should return 200 OK for the root endpoint", async () => {
+    const response = await fetch("http://localhost:3000");
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data).toEqual({
-      message: 'Welcome to the TDD workshop!',
+      message: "Welcome to the TDD workshop!",
     });
   });
 
-  it('should return 404 for non-existent endpoints', async () => {
-    const response = await fetch('http://localhost:3000/non-existent');
+  it("should return 404 for non-existent endpoints", async () => {
+    const response = await fetch("http://localhost:3000/non-existent");
     expect(response.status).toBe(404);
   });
 });
