@@ -16,10 +16,8 @@
   "keywords": [],
   "author": "Vinicius Albano <vinialbano@gmail.com> (https://vinialbano.com)",
   "license": "ISC",
-  "packageManager": "pnpm@10.8.0",
-  "workspaces": [
-    "apps/*"
-  ],
+  "packageManager": "pnpm@10.11.1",
+  "workspaces": ["apps/*", "packages/*"],
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@total-typescript/tsconfig": "^1.0.4",

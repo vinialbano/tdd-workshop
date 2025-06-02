@@ -1,0 +1,17 @@
+services:
+  monorepo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/home/node/tdd-workshop
+      - deps:/home/node/.local/share/pnpm:cached
+    ports:
+      - '3000:3000'
+      - '4000:4000'
+    environment:
+      - NODE_ENV=development
+      - PNPM_HOME=/home/node/.local/share/pnpm
+
+volumes:
+  deps:
