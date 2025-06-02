@@ -11,7 +11,8 @@
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "report": "turbo run report",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "clean": "turbo run clean && rm -rf node_modules",
+    "check-types": "turbo run check-types"
   },
   "keywords": [],
   "author": "Vinicius Albano <vinialbano@gmail.com> (https://vinialbano.com)",

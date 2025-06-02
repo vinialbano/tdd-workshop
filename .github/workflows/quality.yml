@@ -1,0 +1,69 @@
+name: Quality Assurance
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to run checks against'
+        required: true
+        default: 'main'
+        type: string
+
+jobs:
+  quality:
+    name: Quality Checks
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2
+        ref: ${{ github.event_name == 'workflow_dispatch' && inputs.branch || github.ref }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        run_install: false
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'pnpm'
+
+    - name: Cache Turborepo
+      id: turbo-cache
+      uses: actions/cache@v4
+      with:
+        path: .turbo
+        key: ${{ runner.os }}-turbo-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-turbo-${{ hashFiles('**/pnpm-lock.yaml') }}-
+          ${{ runner.os }}-turbo-
+
+    - name: Install dependencies
+      if: steps.turbo-cache.outputs.cache-hit != 'true'
+      run: pnpm install
+
+    - name: Run quality checks
+      run: |
+        pnpm check-types
+        pnpm lint
+        pnpm format
+        pnpm test && pnpm report
+      env:
+        NODE_ENV: test
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: packages/vitest-config/coverage/report/
+        if-no-files-found: error
+        retention-days: 7 

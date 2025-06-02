@@ -1,8 +1,8 @@
-import cookieParser from 'cookie-parser';
-import type { Request, Response } from 'express';
-import express, { type NextFunction } from 'express';
-import createError from 'http-errors';
-import { pinoHttp } from 'pino-http';
+import cookieParser from "cookie-parser";
+import type { Request, Response } from "express";
+import express, { type NextFunction } from "express";
+import createError from "http-errors";
+import { pinoHttp } from "pino-http";
 
 export interface AppError extends Error {
   status?: number;
@@ -17,14 +17,14 @@ export const createApp = () => {
     .use(express.urlencoded({ extended: false }))
     .use(cookieParser())
     // Routes
-    .get('/', (_req: Request, res: Response) => {
+    .get("/", (_req: Request, res: Response) => {
       res.json({
-        message: 'Welcome to the TDD workshop!',
+        message: "Welcome to the TDD workshop!",
       });
     })
-    .get('/health', (_req: Request, res: Response) => {
+    .get("/health", (_req: Request, res: Response) => {
       res.json({
-        status: 'ok',
+        status: "ok",
         timestamp: new Date().toISOString(),
       });
     })
@@ -38,11 +38,11 @@ export const createApp = () => {
 
       // set locals, only providing error in development
       res.locals.message = err.message;
-      res.locals.error = req.app.get('env') === 'development' ? err : {};
+      res.locals.error = req.app.get("env") === "development" ? err : {};
 
       // render the error page
       res.status(err.status || 500);
-      res.render('error');
+      res.render("error");
     });
 
   return app;

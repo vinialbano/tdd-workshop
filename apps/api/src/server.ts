@@ -1,5 +1,5 @@
-import { createApp } from './app.js';
-import { config } from './config.js';
+import { createApp } from "./app.js";
+import { config } from "./config.js";
 
 async function startServer() {
   const app = createApp();
@@ -10,6 +10,6 @@ async function startServer() {
 }
 
 startServer().catch((err) => {
-  console.error('Error starting server:', err);
+  console.error("Error starting server:", err);
   process.exit(1);
 });

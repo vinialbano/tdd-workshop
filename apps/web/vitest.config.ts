@@ -1,3 +1,3 @@
-import { uiConfig } from '@repo/vitest-config/ui';
+import { uiConfig } from "@repo/vitest-config/ui";
 
 export default uiConfig;
