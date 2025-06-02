@@ -9,7 +9,8 @@
     "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
       "plugins": "F-Sy-H zsh-autosuggestions zsh-completions git",
       "omzPlugins": "https://github.com/z-shell/F-Sy-H https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-completions"
-    }
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "customizations": {
     "vscode": {

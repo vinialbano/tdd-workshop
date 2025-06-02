@@ -22,6 +22,12 @@ export const createApp = () => {
         message: 'Welcome to the TDD workshop!',
       });
     })
+    .get('/health', (_req: Request, res: Response) => {
+      res.json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+      });
+    })
     // Catch 404 and forward to error handler
     .use((_req: Request, _res: Response, next: NextFunction) => {
       next(createError(404));
