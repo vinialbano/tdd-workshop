@@ -76,6 +76,9 @@ importers:
 
   apps/e2e-tests:
     devDependencies:
+      '@types/node':
+        specifier: ^20.17.57
+        version: 20.17.57
       cypress:
         specifier: ^14.4.1
         version: 14.4.1
