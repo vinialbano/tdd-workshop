@@ -20,6 +20,7 @@
     "@tailwindcss/vite": "^4.1.7",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/jest-dom": "^6.4.2",
+    "@total-typescript/tsconfig": "^1.0.4",
     "@vitest/coverage-istanbul": "3.1.4",
     "jsdom": "^24.0.0",
     "tailwindcss": "^4.1.7",
