@@ -91,6 +91,9 @@ importers:
       '@testing-library/jest-dom':
         specifier: ^6.4.2
         version: 6.6.3
+      '@total-typescript/tsconfig':
+        specifier: ^1.0.4
+        version: 1.0.4
       '@vitest/coverage-istanbul':
         specifier: 3.1.4
         version: 3.1.4(vitest@3.1.4)
