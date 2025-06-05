@@ -23,6 +23,10 @@ RUN SHELL="bash" && \
 # Set working directory
 WORKDIR /home/node/tdd-workshop
 
+# Install Playwright dependencies
+RUN pnpm add -D @playwright/test && \
+    pnpm exec playwright install-deps
+
 # Set environment variables
 ENV NODE_ENV=development
 

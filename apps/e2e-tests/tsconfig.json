@@ -1,12 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom"],
-    "types": ["cypress", "node"],
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
+  "extends": "@total-typescript/tsconfig/bundler/dom/app",
   "include": ["**/*.ts"]
 }

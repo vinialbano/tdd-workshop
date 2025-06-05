@@ -138,3 +138,13 @@ dist
 
 # turbo
 .turbo
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
