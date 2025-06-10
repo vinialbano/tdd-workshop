@@ -1,0 +1,64 @@
+services:
+  # Production postgres configuration
+  postgres:
+    env_file:
+      - apps/api/.env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+
+  # Production migration service
+  migrations:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      args:
+        - TURBO_TEAM=${TURBO_TEAM}
+        - TURBO_TOKEN=${TURBO_TOKEN}
+    env_file:
+      - apps/api/.env
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=postgres
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    command: ["sh", "-c", "NODE_ENV=production npx knex migrate:latest --knexfile db/config.js && NODE_ENV=production npx knex seed:run --knexfile db/config.js"]
+    networks:
+      - tdd-workshop
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Production API configuration
+  api:
+    env_file:
+      - apps/api/.env
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - DB_HOST=postgres
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - CORS_ORIGIN=${CORS_ORIGIN}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+
+  # Production Web configuration  
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        - TURBO_TEAM=${TURBO_TEAM}
+        - TURBO_TOKEN=${TURBO_TOKEN}
+        - VITE_API_URL=${VITE_API_URL}
+    restart: unless-stopped 

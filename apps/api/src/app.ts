@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import express, { type NextFunction } from "express";
 import createError from "http-errors";
 import { pinoHttp } from "pino-http";
-import { getMessages } from "./lib/db.js";
+import db from "./db/knex.js";
 
 export interface AppError extends Error {
   status?: number;
@@ -43,7 +43,9 @@ export const createApp = () => {
     })
     .get("/messages", async (req: Request, res: Response) => {
       try {
-        const messages = await getMessages();
+        const messages = await db("messages")
+          .select("id", "content")
+          .orderBy("id");
         res.json(messages);
       } catch (error) {
         req.log.error(error);

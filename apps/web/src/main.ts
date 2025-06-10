@@ -27,7 +27,7 @@ async function renderMessages() {
               <p class="text-sm">${message.content}</p>
             </div>
           </div>
-        `
+        `,
       )
       .join("");
 

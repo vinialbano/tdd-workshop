@@ -1,0 +1,58 @@
+services:
+  # Override postgres for test environment with test-specific database
+  postgres:
+    environment:
+      - POSTGRES_USER=tdd_user_test
+      - POSTGRES_PASSWORD=tdd_password_test
+      - POSTGRES_DB=tdd_workshop_test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tdd_user_test -d tdd_workshop_test"]
+
+  # Test-specific migration service
+  migrations:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      args:
+        - TURBO_TEAM=${TURBO_TEAM}
+        - TURBO_TOKEN=${TURBO_TOKEN}
+    env_file:
+      - apps/api/.env
+    environment:
+      - NODE_ENV=test
+      - DB_HOST=postgres
+      - DB_USER=tdd_user_test
+      - DB_PASSWORD=tdd_password_test
+      - DB_NAME=tdd_workshop_test
+    command: ["sh", "-c", "NODE_ENV=test npx knex migrate:latest --knexfile db/config.js && NODE_ENV=test npx knex seed:run --knexfile db/config.js"]
+    networks:
+      - tdd-workshop
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Override API for test environment
+  api:
+    environment:
+      - NODE_ENV=test
+      - PORT=4000
+      - DB_HOST=postgres
+      - DB_USER=tdd_user_test
+      - DB_PASSWORD=tdd_password_test
+      - DB_NAME=tdd_workshop_test
+      - CORS_ORIGIN=http://localhost:8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+
+  # Override Web for test environment
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        - TURBO_TEAM=${TURBO_TEAM}
+        - TURBO_TOKEN=${TURBO_TOKEN}
+        - VITE_API_URL=http://localhost:4000 

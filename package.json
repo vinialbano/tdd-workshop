@@ -15,13 +15,22 @@
     "check-types": "turbo run check-types",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "turbo run build && changeset version"
+    "release": "turbo run build && changeset version",
+    "prod:up": "./scripts/prod.sh up -d",
+    "prod:down": "./scripts/prod.sh down",
+    "prod:logs": "./scripts/prod.sh logs",
+    "prod:restart": "./scripts/prod.sh restart",
+    "test:up": "docker-compose -f docker-compose.base.yml -f docker-compose.test.yml up -d",
+    "test:down": "docker-compose -f docker-compose.base.yml -f docker-compose.test.yml down"
   },
   "keywords": [],
   "author": "Vinicius Albano <vinialbano@gmail.com> (https://vinialbano.com)",
   "license": "ISC",
   "packageManager": "pnpm@10.11.1",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@changesets/cli": "^2.29.4",
