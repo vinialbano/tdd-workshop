@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 
+test.describe.configure({ mode: 'serial' });
 test.describe("Send Message", () => {
   test("should allow user to send a new message", async ({ page }) => {
     await page.goto("/");
@@ -32,12 +33,12 @@ test.describe("Send Message", () => {
     // Verify the input is cleared
     await expect(messageInput).toHaveValue("");
 
+    // Verify our specific message is visible
+    await expect(page.getByText(testMessage)).toBeVisible();
+
     // Verify the new message appears in the messages list
     const messagesAfter = page.locator("div.message p");
     await expect(messagesAfter).toHaveCount(initialCount + 1);
-
-    // Verify our specific message is visible
-    await expect(page.getByText(testMessage)).toBeVisible();
 
     // Verify the new message is at the bottom (most recent)
     const lastMessage = messagesAfter.last();

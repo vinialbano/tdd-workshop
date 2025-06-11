@@ -20,7 +20,7 @@
     },
     "test": {
       "dependsOn": ["^test", "@repo/vitest-config#build"],
-      "outputs": ["coverage.json", "coverage/**"]
+      "outputs": ["coverage.json"]
     },
     "merge-json-reports": {
       "inputs": ["coverage/raw/**"],

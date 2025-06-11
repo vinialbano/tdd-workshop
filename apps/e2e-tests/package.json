@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "description": "End-to-end tests for TDD Workshop",
   "scripts": {
-    "test:smoke": "playwright test",
+    "test": "PLAYWRIGHT_HTML_OPEN=never playwright test",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
     "test:headed": "playwright test --headed",
-    "report": "playwright show-report",
+    "report": "PLAYWRIGHT_HTML_OPEN=never playwright test --reporter=html",
+    "view-report": "playwright show-report",
     "install": "exec playwright install"
   },
   "keywords": [],
