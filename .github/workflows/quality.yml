@@ -51,6 +51,9 @@ jobs:
       if: steps.turbo-cache.outputs.cache-hit != 'true'
       run: pnpm install
 
+    - name: Copy .env.test.example to .env
+      run: cp apps/api/.env.test.example apps/api/.env
+
     - name: Run quality checks
       run: |
         echo "Running type checks..."
