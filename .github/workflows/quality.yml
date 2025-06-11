@@ -51,14 +51,26 @@ jobs:
       if: steps.turbo-cache.outputs.cache-hit != 'true'
       run: pnpm install
 
+    - name: Copy .env.test.example to .env
+      run: cp apps/api/.env.test.example apps/api/.env
+
     - name: Run quality checks
       run: |
+        echo "Running type checks..."
         pnpm check-types
+        echo "Running linting..."
         pnpm lint
+        echo "Running formatting checks..."
         pnpm format
-        pnpm test && pnpm report
+        echo "Running tests..."
+        pnpm test
+        echo "Generating coverage report..."
+        pnpm report
+        echo "Quality checks completed successfully"
       env:
         NODE_ENV: test
+        CI: true
+        FORCE_COLOR: 0
 
     - name: Upload coverage report
       uses: actions/upload-artifact@v4
