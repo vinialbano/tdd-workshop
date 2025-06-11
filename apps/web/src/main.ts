@@ -30,7 +30,9 @@ async function sendMessage(content: string): Promise<void> {
 
 function scrollToBottom() {
   // Find the scrollable messages container
-  const messagesContainer = document.querySelector('.space-y-2.overflow-y-auto.h-full.p-4');
+  const messagesContainer = document.querySelector(
+    ".space-y-2.overflow-y-auto.h-full.p-4",
+  );
   if (messagesContainer) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
@@ -184,7 +186,7 @@ async function handleSendMessage() {
     // Clear input and refresh messages
     messageInput.value = "";
     await renderMessages();
-    
+
     // Scroll to bottom to show the new message
     scrollToBottom();
 
