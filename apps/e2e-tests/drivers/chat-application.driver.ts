@@ -15,14 +15,14 @@ export class ChatApplicationDriver {
   }
 
   async showsMessageList() {
-    const messages = this.page.locator("div.message p");
+    const messages = this.page.locator(".message");
     const count = await messages.count();
     expect(count).toBeGreaterThan(0);
     return this;
   }
 
   async forEachMessage(callback: (index: number) => Promise<void>) {
-    const messages = this.page.locator("div.message p");
+    const messages = this.page.locator(".message");
     const count = await messages.count();
 
     for (let i = 0; i < count; i++) {
@@ -32,7 +32,7 @@ export class ChatApplicationDriver {
   }
 
   async scrollToMessage(index: number) {
-    const messages = this.page.locator("div.message p");
+    const messages = this.page.locator(".message");
     const message = messages.nth(index);
     await message.scrollIntoViewIfNeeded();
     await expect(message).toBeVisible();
@@ -40,13 +40,13 @@ export class ChatApplicationDriver {
   }
 
   async countMessages() {
-    const messages = this.page.locator("div.message p");
+    const messages = this.page.locator(".message");
     return messages.count();
   }
 
   async sendMessage(text: string) {
-    const messageInput = this.page.locator("#messageInput");
-    const sendButton = this.page.locator("#sendButton");
+    const messageInput = this.page.locator("#message-input");
+    const sendButton = this.page.locator("#send-button");
 
     await messageInput.fill(text);
     await sendButton.click();
@@ -59,7 +59,7 @@ export class ChatApplicationDriver {
   }
 
   async messageAtPositionIsVisible(index: number) {
-    const messages = this.page.locator("div.message p");
+    const messages = this.page.locator(".message");
     const message = messages.nth(index);
     await expect(message).toBeVisible();
     return this;
