@@ -9,10 +9,9 @@ test.describe("View Messages", () => {
     const chat = await driver.openChat();
 
     await chat.showsMessageList();
-
     await chat.forEachMessage(async (index: number) => {
       await chat.scrollToMessage(index);
-      await chat.messageIsVisible(index);
+      await chat.messageAtPositionIsVisible(index);
     });
   });
 });

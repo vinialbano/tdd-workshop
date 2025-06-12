@@ -39,10 +39,41 @@ export class ChatApplicationDriver {
     return this;
   }
 
-  async messageIsVisible(index: number) {
+  async countMessages() {
+    const messages = this.page.locator("div.message p");
+    return messages.count();
+  }
+
+  async sendMessage(text: string) {
+    const messageInput = this.page.locator("#messageInput");
+    const sendButton = this.page.locator("#sendButton");
+
+    await messageInput.fill(text);
+    await sendButton.click();
+    return this;
+  }
+
+  async messageWithTextIsVisible(text: string) {
+    await expect(this.page.getByText(text)).toBeVisible();
+    return this;
+  }
+
+  async messageAtPositionIsVisible(index: number) {
     const messages = this.page.locator("div.message p");
     const message = messages.nth(index);
     await expect(message).toBeVisible();
+    return this;
+  }
+
+  async hasMessageCount(expectedCount: number) {
+    const currentCount = await this.countMessages();
+    expect(currentCount).toBe(expectedCount);
+    return this;
+  }
+
+  async reloadPage() {
+    await this.page.reload();
+    await this.waitForPageLoad();
     return this;
   }
 }
