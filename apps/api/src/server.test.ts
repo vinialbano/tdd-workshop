@@ -8,7 +8,7 @@ describe("API Server", () => {
   beforeAll(() => {
     const app = createApp();
     server = createServer(app);
-    server.listen(3000);
+    server.listen(4000);
   });
 
   afterAll(() => {
@@ -16,7 +16,7 @@ describe("API Server", () => {
   });
 
   it("should return 200 OK for the root endpoint", async () => {
-    const response = await fetch("http://localhost:3000");
+    const response = await fetch("http://localhost:4000");
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data).toEqual({
@@ -24,8 +24,41 @@ describe("API Server", () => {
     });
   });
 
+  it('should return the list of existing messages', async () => {
+    const response = await fetch("http://localhost:4000/messages");
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(Array.isArray(data)).toBe(true);
+    type Message = { id: number; content: string };
+    for (const message of data as Message[]) {
+      expect(message).toMatchObject({
+        id: expect.any(Number),
+        content: expect.any(String),
+      });
+    }
+  });
+
+  it('should should create a new message', async () => {
+    const response = await fetch("http://localhost:4000/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content: "Hello, world!" }),
+    });
+    expect(response.status).toBe(201);
+    const data = await response.json();
+    expect(data).toMatchObject({
+      message: "Message created successfully",
+      data: {
+        content: "Hello, world!",
+        id: expect.any(Number),
+      },
+    });
+  });
+
   it("should return 404 for non-existent endpoints", async () => {
-    const response = await fetch("http://localhost:3000/non-existent");
+    const response = await fetch("http://localhost:4000/non-existent");
     expect(response.status).toBe(404);
   });
 });
