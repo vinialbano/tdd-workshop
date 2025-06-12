@@ -7,7 +7,49 @@
     <title>TDD Workshop</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="min-h-screen bg-gray-100 flex flex-col">
+        <nav class="bg-white shadow-lg">
+          <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between">
+              <div class="flex space-x-7">
+                <div>
+                  <a href="/" class="flex items-center py-4">
+                    <span class="font-semibold text-gray-500 text-lg">TDD Workshop</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <main class="flex-1 container mx-auto px-4 py-8">
+          <div class="max-w-6xl mx-auto">
+            <section id="messages">
+              <h1 class="text-3xl font-bold text-gray-900 mb-8">Messages</h1>
+              <div class="bg-white rounded-lg shadow-lg p-2 h-[calc(100vh-17rem)]">
+                <div id="messages-list" class="space-y-2 overflow-y-auto h-full p-4">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+            </section>
+            <div class="bg-white rounded-lg shadow-lg p-4 mt-4">
+              <div class="flex space-x-3">
+                <input
+                  type="text"
+                  id="message-input"
+                  placeholder="Type your message here..."
+                  class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                >
+                <button
+                  id="send-button"
+                  class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 outline-none"
+                >Send</button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
