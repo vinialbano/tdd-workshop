@@ -35,7 +35,8 @@
         "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.fontFamily": "monospace",
         "typescript.tsdk": "node_modules/typescript/lib",
-        "typescript.enablePromptUseWorkspaceTsdk": true
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+        "dev.containers.dockerCredentialHelper": false
       }
     }
   }
