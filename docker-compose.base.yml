@@ -10,8 +10,6 @@ services:
       - POSTGRES_USER=tdd_user
       - POSTGRES_PASSWORD=tdd_password
       - POSTGRES_DB=tdd_workshop
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     networks:
       - tdd-workshop
     healthcheck:
@@ -74,7 +72,4 @@ services:
 
 networks:
   tdd-workshop:
-    name: tdd-workshop
-
-volumes:
-  postgres_data: 
+    name: tdd-workshop 
