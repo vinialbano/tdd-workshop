@@ -1,6 +1,6 @@
-import { config as dotenvConfig } from "dotenv";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { config as dotenvConfig } from "dotenv";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
