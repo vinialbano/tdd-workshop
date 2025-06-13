@@ -7,6 +7,8 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
 
@@ -61,4 +63,8 @@ services:
         - TURBO_TEAM=${TURBO_TEAM}
         - TURBO_TOKEN=${TURBO_TOKEN}
         - VITE_API_URL=${VITE_API_URL}
-    restart: unless-stopped 
+    restart: unless-stopped
+
+volumes:
+  postgres_prod_data:
+    name: tdd-workshop-prod-db
