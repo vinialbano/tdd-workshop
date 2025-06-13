@@ -15,11 +15,11 @@
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
     "clean": "rm -rf dist",
-    "knex:migrate": "NODE_ENV=development pnpm build && pnpm exec knex migrate:latest --knexfile dist/db/config.js",
-    "knex:migrate:rollback": "NODE_ENV=development pnpm build && pnpm exec knex migrate:rollback --knexfile dist/db/config.js",
-    "knex:migrate:make": "NODE_ENV=development pnpm build && pnpm exec knex migrate:make --knexfile dist/db/config.js",
-    "knex:seed": "NODE_ENV=development pnpm build && pnpm exec knex seed:run --knexfile dist/db/config.js",
-    "knex:seed:make": "NODE_ENV=development pnpm build && pnpm exec knex seed:make --knexfile dist/db/config.js"
+    "knex:migrate": "NODE_ENV=development pnpm build && pnpm exec knex migrate:latest --knexfile dist/infra/db/config.js",
+    "knex:migrate:rollback": "NODE_ENV=development pnpm build && pnpm exec knex migrate:rollback --knexfile dist/infra/db/config.js",
+    "knex:migrate:make": "NODE_ENV=development pnpm build && pnpm exec knex migrate:make --knexfile dist/infra/db/config.js",
+    "knex:seed": "NODE_ENV=development pnpm build && pnpm exec knex seed:run --knexfile dist/infra/db/config.js",
+    "knex:seed:make": "NODE_ENV=development pnpm build && pnpm exec knex seed:make --knexfile dist/infra/db/config.js"
   },
   "author": "Vinícius Albano <vinialbano@gmail.com> (https://vinialbano.com/)",
   "license": "ISC",

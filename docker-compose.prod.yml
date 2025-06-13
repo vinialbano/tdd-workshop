@@ -26,7 +26,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
-    command: ["sh", "-c", "NODE_ENV=production npx knex migrate:latest --knexfile db/config.js && NODE_ENV=production npx knex seed:run --knexfile db/config.js"]
+    command: ["sh", "-c", "NODE_ENV=production npx knex migrate:latest --knexfile infra/db/config.js && NODE_ENV=production npx knex seed:run --knexfile infra/db/config.js"]
     networks:
       - tdd-workshop
     depends_on:
