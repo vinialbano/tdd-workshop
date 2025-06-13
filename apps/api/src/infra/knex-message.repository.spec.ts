@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Message } from "../controllers/message.repository.js";
-import { db } from "./db/knex.js";
+import db from "./db/knex.js";
 import { KnexMessageRepository } from "./knex-message.repository.js";
 
 vi.mock("./db/knex.js", () => ({
-  db: vi.fn(),
+  __esModule: true,
+  default: vi.fn(),
 }));
 
 describe("KnexMessageRepository", () => {

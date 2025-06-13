@@ -24,7 +24,7 @@ services:
       - DB_USER=tdd_user_test
       - DB_PASSWORD=tdd_password_test
       - DB_NAME=tdd_workshop_test
-    command: ["sh", "-c", "NODE_ENV=test npx knex migrate:latest --knexfile db/config.js && NODE_ENV=test npx knex seed:run --knexfile db/config.js"]
+    command: ["sh", "-c", "NODE_ENV=test npx knex migrate:latest --knexfile infra/db/config.js && NODE_ENV=test npx knex seed:run --knexfile infra/db/config.js"]
     networks:
       - tdd-workshop
     depends_on:

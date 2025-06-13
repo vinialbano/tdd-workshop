@@ -33,7 +33,8 @@ describe("Message Controller", () => {
   beforeEach(() => {
     repo = new StubRepository();
     controller = new MessageController(repo);
-    req = { body: {}, log: { error: vi.fn() } };
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    req = { body: {}, log: { error: vi.fn() } as any };
     res = {
       json: vi.fn(),
       status: vi.fn().mockReturnThis(),
