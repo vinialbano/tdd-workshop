@@ -1,6 +1,9 @@
 {
   "name": "TDD Workshop DevContainer",
   "dockerComposeFile": ["./docker-compose.yml"],
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,type=bind,consistency=cached"
+  ],
   "service": "monorepo",
   "workspaceFolder": "/home/node/tdd-workshop",
   "features": {
