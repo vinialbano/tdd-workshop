@@ -2,11 +2,27 @@ import { createServer } from "node:http";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { createApp } from "./app.js";
 
+class StubMessageRepository {
+  public messages = [
+    { id: 1, content: "Hello" },
+    { id: 2, content: "World" },
+  ];
+  public createdMessage: unknown = null;
+  async getMessages() {
+    return this.messages;
+  }
+  async createMessage(content: string) {
+    const newMessage = { id: 3, content };
+    this.createdMessage = newMessage;
+    return newMessage;
+  }
+}
+
 describe("API Server", () => {
   let server: ReturnType<typeof createServer>;
 
   beforeAll(() => {
-    const app = createApp();
+    const app = createApp(new StubMessageRepository());
     server = createServer(app);
     server.listen(4000);
   });
@@ -24,7 +40,7 @@ describe("API Server", () => {
     });
   });
 
-  it('should return the list of existing messages', async () => {
+  it("should return the list of existing messages", async () => {
     const response = await fetch("http://localhost:4000/messages");
     expect(response.status).toBe(200);
     const data = await response.json();
@@ -38,7 +54,7 @@ describe("API Server", () => {
     }
   });
 
-  it('should should create a new message', async () => {
+  it("should should create a new message", async () => {
     const response = await fetch("http://localhost:4000/messages", {
       method: "POST",
       headers: {

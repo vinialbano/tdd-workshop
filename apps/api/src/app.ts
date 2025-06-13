@@ -1,15 +1,16 @@
 import cookieParser from "cookie-parser";
 import type { Request, Response } from "express";
-import express, { type NextFunction } from "express";
+import express, { Router, type NextFunction } from "express";
 import createError from "http-errors";
 import { pinoHttp } from "pino-http";
-import db from "./db/knex.js";
+import { MessageController } from "./controllers/message.controller.js";
+import type { MessageRepository } from "./controllers/message.repository.js";
 
 export interface AppError extends Error {
   status?: number;
 }
 
-export const createApp = () => {
+export const createApp = (messageRepository: MessageRepository) => {
   const app = express();
 
   app
@@ -32,9 +33,18 @@ export const createApp = () => {
       if (req.method === "OPTIONS") {
         return res.sendStatus(200);
       }
-
       next();
-    })
+    });
+
+  const messageController = new MessageController(messageRepository);
+  const messageRouter = Router();
+  messageRouter.get("/", messageController.getMessages.bind(messageController));
+  messageRouter.post(
+    "/",
+    messageController.createMessage.bind(messageController),
+  );
+  app
+    .use("/messages", messageRouter)
     // Routes
     .get("/", (_req: Request, res: Response) => {
       res.json({
@@ -47,43 +57,7 @@ export const createApp = () => {
         timestamp: new Date().toISOString(),
       });
     })
-    .get("/messages", async (req: Request, res: Response) => {
-      try {
-        const messages = await db("messages")
-          .select("id", "content")
-          .orderBy("id");
-        res.json(messages);
-      } catch (error) {
-        req.log.error(error);
-        res.status(500).json({ error: "Failed to fetch messages" });
-      }
-    })
-    .post("/messages", async (req: Request, res: Response) => {
-      try {
-        const { content } = req.body;
 
-        if (
-          !content ||
-          typeof content !== "string" ||
-          content.trim().length === 0
-        ) {
-          return res.status(400).json({ error: "Message content is required" });
-        }
-
-        // Insert the message into the database
-        const [newMessage] = await db("messages")
-          .insert({ content: content.trim() })
-          .returning(["id", "content"]);
-
-        res.status(201).json({
-          message: "Message created successfully",
-          data: newMessage,
-        });
-      } catch (error) {
-        req.log.error(error);
-        res.status(500).json({ error: "Failed to create message" });
-      }
-    })
     // Catch 404 and forward to error handler
     .use((_req: Request, _res: Response, next: NextFunction) => {
       next(createError(404));
